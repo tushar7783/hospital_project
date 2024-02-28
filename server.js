@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 8000;
 const userRoutes = require("./routes/userRoutes");
+const doctorRoutes = require("./routes/doctorRoutes");
 const mongoose = require("mongoose");
 
 mongoose
@@ -21,6 +22,7 @@ app.get("/", async (req, res) => {
   res.send("api woeking");
 });
 app.use("/api/user", userRoutes);
+app.use("/api/doctor", doctorRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on port :${PORT}`);
