@@ -31,6 +31,10 @@ const DoctorSchema = new Schema(
       // required: true,f=
       default: "/images/doctor.png",
     },
+    role: {
+      type: String,
+      default: "DOCTOR",
+    },
   },
   { timeStamp: true }
 );

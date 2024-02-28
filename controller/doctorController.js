@@ -1,3 +1,4 @@
+const AppointmentModel = require("../models/appointment");
 const DoctorModel = require("../models/doctor");
 // const { find } = require("../models/user");
 
@@ -46,7 +47,22 @@ exports.getAllDoctor = async (req, res) => {
     res.json({ message: "Internal Server error", error: error });
   }
 };
-
+exports.appointmentList = async (req, res) => {
+  try {
+    const doctorId = req.user.id;
+    console.log(doctorId);
+    const list = await AppointmentModel.find({ doctorId });
+    if (!list) return "something went wrong";
+    res.status(200).json({
+      meassage: "list of appointment",
+      success: true,
+      list: list,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal Server error", error: error });
+  }
+};
 exports.test = async (req, res) => {
   res.send("testing api");
 };
