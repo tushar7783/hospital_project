@@ -50,7 +50,7 @@ exports.getAllDoctor = async (req, res) => {
 exports.appointmentList = async (req, res) => {
   try {
     const doctorId = req.user.id;
-    console.log(doctorId);
+    // console.log(req.user);
     const list = await AppointmentModel.find({ doctorId });
     if (!list) return "something went wrong";
     res.status(200).json({
@@ -62,6 +62,16 @@ exports.appointmentList = async (req, res) => {
     console.log(error);
     res.status(500).json({ message: "Internal Server error", error: error });
   }
+};
+
+exports.testAdmin = async (req, res) => {
+  res.send("admin access");
+};
+exports.testDoctor = async (req, res) => {
+  res.send("Doctor access");
+};
+exports.testUser = async (req, res) => {
+  res.send("user access");
 };
 exports.test = async (req, res) => {
   res.send("testing api");
