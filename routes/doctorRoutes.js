@@ -9,10 +9,16 @@ const RoleCheckUser = require("../Middleware/userOnly");
 
 routes.post("/signup", doctorController.signup);
 routes.post("/signin", doctorController.signin);
-routes.get("/getAllDoc", jwt_authentication, doctorController.getAllDoctor);
+routes.get(
+  "/getAllDoc",
+  jwt_authentication,
+  RoleCheckAdmin,
+  doctorController.getAllDoctor
+);
 routes.post(
   "/appointmentList",
   jwt_authentication,
+  RoleCheckDoctor,
   doctorController.appointmentList
 );
 routes.post(

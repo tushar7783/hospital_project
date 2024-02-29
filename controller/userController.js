@@ -44,13 +44,14 @@ exports.getAllUser = async (req, res) => {
 
 exports.appointment = async (req, res) => {
   try {
-    const { ProblemDesccription, doctorId } = req.body;
+    const { ProblemDesccription, doctorId, dateOfappointment } = req.body;
     const userId = req.user.id;
     // console.log(req.user.id);
     const appointment = await AppointmentModel.create({
       ProblemDesccription: ProblemDesccription,
       doctorId: doctorId,
       userId: userId,
+      dateOfappointment: dateOfappointment,
     });
     if (!appointment) return "Something went wrong";
     res.status(201).json({
