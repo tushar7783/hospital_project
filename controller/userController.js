@@ -66,7 +66,7 @@ exports.appointment = async (req, res) => {
   }
 };
 exports.search = async (req, res) => {
-  console.log(req.params.key);
+  // console.log(req.params.key);
 
   try {
     const result = await DoctorModel.find({

@@ -7,7 +7,7 @@ class User_Auth {
     if (isExist.role == "USER") {
       next();
     } else {
-      return res.send({ message: "Please login as Doctor" });
+      return res.send({ message: "Please login as user/patient" });
     }
   }
 }
