@@ -8,9 +8,24 @@ const RoleCheckUser = require("../Middleware/userOnly");
 routes.post("/signup", userController.signup);
 routes.post("/signin/login", userController.signin);
 // routes.get("/logout", userController)
-routes.post("/getAllUser", jwt_authentication, userController.getAllUser);
-routes.post("/appointment", jwt_authentication, userController.appointment);
-routes.post("/search/:key", jwt_authentication, userController.search);
+routes.post(
+  "/getAllUser",
+  jwt_authentication,
+  RoleCheckAdmin,
+  userController.getAllUser
+);
+routes.post(
+  "/appointment",
+  jwt_authentication,
+  RoleCheckUser,
+  userController.appointment
+);
+routes.post(
+  "/search/:key",
+  jwt_authentication,
+  RoleCheckUser,
+  userController.search
+);
 routes.get("/test", userController.test);
 
 module.exports = routes;
