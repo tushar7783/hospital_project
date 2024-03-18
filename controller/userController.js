@@ -81,6 +81,23 @@ exports.search = async (req, res) => {
     res.status(500).json({ message: "Internal Server error", error: error });
   }
 };
+exports.isResolved = async (req, res) => {
+  try {
+    console.log(req.user.id);
+
+    const update = await AppointmentModel.updateOne(
+      { userId: req.user.id },
+      { $set: { isResloved: true } }
+    );
+
+    res
+      .status(200)
+      .json({ message: "Patient's issue resolved", success: true });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal Server error", error: error });
+  }
+};
 
 exports.test = async (req, res) => {
   res.send("api test");

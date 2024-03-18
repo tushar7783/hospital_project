@@ -51,7 +51,7 @@ exports.appointmentList = async (req, res) => {
   try {
     const doctorId = req.user.id;
     // console.log(req.user);
-    const list = await AppointmentModel.find({ doctorId });
+    const list = await AppointmentModel.find({ doctorId, isResloved: false });
     if (!list) return "something went wrong";
     res.status(200).json({
       meassage: "list of appointment",
