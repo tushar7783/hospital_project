@@ -3,10 +3,10 @@ the api blue print
 Handles authentication and authorization of users.
 
 Endpoints:
-POST /register - Register a new user.
-POST /login - Authenticate a user.
-GET /logout - Log out the user.
-GET /profile - Get user profile information.
+POST /register - Register a new user. yes
+POST /login - Authenticate a user. yes
+GET /logout - Log out the user. 
+GET /profile - Get user profile information. 
 PUT /profile - Update user profile.
 2. Patient Management API
 Manages patient records and information.

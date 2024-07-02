@@ -7,6 +7,7 @@ const RoleCheckUser = require("../Middleware/userOnly");
 // const RoleCheckUserAndDoctor = require("../Middleware/doctorAndUser");
 routes.post("/signup", userController.signup);
 routes.post("/signin/login", userController.signin);
+routes.put("/changePassword",userController.changePassword)
 // routes.get("/logout", userController)
 routes.post(
   "/getAllUser",
@@ -14,7 +15,7 @@ routes.post(
   RoleCheckAdmin,
   userController.getAllUser
 );
-
+routes.get("/profile",jwt_authentication,RoleCheckUser,userController.profile)
 
 routes.post(
   "/search/:key",
@@ -24,7 +25,6 @@ routes.post(
 );
 
 routes.get("/test", userController.test);
-routes.put("/changePassword",userController.changePassword)
 
 // ***********************************************appoinment *******************************************************************
 routes.post(

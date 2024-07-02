@@ -142,3 +142,20 @@ exports.changePassword=async (req,res)=>{
     
   }
 }
+
+exports.profile=async(req,res)=>{
+  try {
+    // console.log(req.user);
+    const user=await UserModel.findById(req.user.id)
+    res.status(200).json({Message:"Profile",success:true ,User:user})
+    console.log(user);
+
+
+
+    
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ message: "Internal Server error", error: error });
+    
+  }
+}
