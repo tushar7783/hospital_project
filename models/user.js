@@ -59,6 +59,7 @@ UserSchema.static(
     const userProvidePasswordHash = createHmac("sha256", salt)
       .update(password)
       .digest("hex");
+      
     if (userPassword != userProvidePasswordHash) return `Inavalid password`;
     const token = await tokengenerator(user);
     return token;

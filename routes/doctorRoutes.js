@@ -15,12 +15,7 @@ routes.get(
   RoleCheckAdmin,
   doctorController.getAllDoctor
 );
-routes.post(
-  "/appointmentList",
-  jwt_authentication,
-  RoleCheckDoctor,
-  doctorController.appointmentList
-);
+
 routes.post(
   "/testAdmin",
   jwt_authentication,
@@ -41,7 +36,15 @@ routes.post(
   RoleCheckUser,
   doctorController.testUser
 );
+routes.put("/changepassword",doctorController.changePassword)
 
+// ***********************************************appoinment *******************************************************************
+routes.post(
+  "/appointmentList",
+  jwt_authentication,
+  RoleCheckDoctor,
+  doctorController.appointmentList
+);
 routes.get("/test", doctorController.test);
 
 module.exports = routes;

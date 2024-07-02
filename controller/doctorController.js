@@ -1,5 +1,6 @@
 const AppointmentModel = require("../models/appointment");
 const DoctorModel = require("../models/doctor");
+const {createHmac}=require("crypto")
 // const { find } = require("../models/user");
 
 exports.signup = async (req, res) => {
@@ -47,6 +48,32 @@ exports.getAllDoctor = async (req, res) => {
     res.json({ message: "Internal Server error", error: error });
   }
 };
+
+exports.changePassword=async(req,res)=>{
+  try {
+    const email=req.body.email;
+    const doc=await DoctorModel.findOne({email:email});
+    const {newPassword,confirmPassword}=req.body;
+    if(newPassword!=confirmPassword){
+      res.status(400).json({Message:"Password do not match"});
+    }
+    else{
+      const salt=doc.salt;
+      const hashpassword=createHmac("sha256",salt).update(newPassword).digest("hex")
+      const update=await DoctorModel.updateOne({email:email},{$set:{password:hashpassword}})
+      if(update.acknowledged||update.modifiedCount>0) res.status(200).json({Message:"password updated"})
+
+    }
+    
+  } catch (error) {
+    console.log(error);
+    res.json({ message: "Internal Server error", error: error });
+  }
+}
+
+// ***********************************************appoinment *******************************************************************
+
+
 exports.appointmentList = async (req, res) => {
   try {
     const doctorId = req.user.id;
@@ -63,6 +90,11 @@ exports.appointmentList = async (req, res) => {
     res.status(500).json({ message: "Internal Server error", error: error });
   }
 };
+
+
+
+
+
 
 exports.testAdmin = async (req, res) => {
   res.send("admin access");

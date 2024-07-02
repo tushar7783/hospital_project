@@ -5,6 +5,7 @@ const tokengenerator = async (user) => {
   const payload = {
     email: user.email,
     id: user._id,
+    // password:user.password,
     role: user.role,
     profileImageUrl: user.profileImageUrl,
   };
@@ -19,6 +20,7 @@ const tokengeneratorDoctor = async (user) => {
     email: user.email,
     id: user._id,
     role: user.role,
+    // password:user.password,
     profileImageUrl: user.profileImageUrl,
     specilization: user.specilization,
   };

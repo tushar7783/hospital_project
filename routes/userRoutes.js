@@ -14,24 +14,32 @@ routes.post(
   RoleCheckAdmin,
   userController.getAllUser
 );
-routes.post(
-  "/appointment",
-  jwt_authentication,
-  RoleCheckUser,
-  userController.appointment
-);
+
+
 routes.post(
   "/search/:key",
   jwt_authentication,
   RoleCheckUser,
   userController.search
 );
+
+routes.get("/test", userController.test);
+routes.put("/changePassword",userController.changePassword)
+
+// ***********************************************appoinment *******************************************************************
+routes.post(
+  "/appointment",
+  jwt_authentication,
+  RoleCheckUser,
+  userController.appointment
+);
+
 routes.post(
   "/isResolved",
   jwt_authentication,
   RoleCheckUser,
   userController.isResolved
 );
-routes.get("/test", userController.test);
+
 
 module.exports = routes;

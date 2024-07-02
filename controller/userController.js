@@ -1,6 +1,8 @@
+require("dotenv/config")
 const UserModel = require("../models/user");
 const DoctorModel = require("../models/doctor");
 const AppointmentModel = require("../models/appointment");
+const { createHmac } = require("crypto");
 
 exports.signup = async (req, res) => {
   try {
@@ -83,7 +85,7 @@ exports.search = async (req, res) => {
 };
 exports.isResolved = async (req, res) => {
   try {
-    console.log(req.user.id);
+    // console.log(req.user.id);
 
     const update = await AppointmentModel.updateOne(
       { userId: req.user.id },
@@ -102,3 +104,41 @@ exports.isResolved = async (req, res) => {
 exports.test = async (req, res) => {
   res.send("api test");
 };
+
+exports.changePassword=async (req,res)=>{
+   try {
+  //   console.log(req.user.id);
+  //   console.log(req.user)
+  const email=req.body.email
+ const user=await UserModel.findOne({email:email});
+ console.log(user);
+  const {newPassword,confirmPassword}=req.body;
+   if(newPassword!=confirmPassword){
+  res.status(400).json({Message:"Password do not match"});
+   }
+   else{
+    const salt = user.salt;
+    const hashpassword = createHmac("sha256", salt)
+      .update(newPassword)
+      .digest("hex");
+    
+    const update=await UserModel.updateOne({email:email},{$set:{password:hashpassword}})
+    console.log(update);
+    if(update.acknowledged||update.modifiedCount>0) res.status(200).json({Message:"password updated"})
+    
+  
+  
+
+   }
+  
+
+
+
+   
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ message: "Internal Server error", error: error });
+
+    
+  }
+}
